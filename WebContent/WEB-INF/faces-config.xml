@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>swe681.LoginBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>createAccountBean</managed-bean-name>
+		<managed-bean-class>swe681.CreateAccountBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>landingPageBean</managed-bean-name>
+		<managed-bean-class>swe681.LandingPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>historyBean</managed-bean-name>
+		<managed-bean-class>swe681.HistoryBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>winsLossesBean</managed-bean-name>
+		<managed-bean-class>swe681.WinsLossesBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>gameBean</managed-bean-name>
+		<managed-bean-class>swe681.GameBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<display-name>Welcome.xhtml</display-name>
+		<from-view-id>/Welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{loginBean.login}</from-action>
+			<from-outcome>LandingPage</from-outcome>
+			<to-view-id>/LandingPage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>Welcome.xhtml</display-name>
+		<from-view-id>/Welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{loginBean.createAccount}</from-action>
+			<from-outcome>CreateAccount</from-outcome>
+			<to-view-id>/CreateAccount.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>CreateAccount.xhtml</display-name>
+		<from-view-id>/CreateAccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{createAccountBean.returnToWelcome}</from-action>
+			<from-outcome>Welcome</from-outcome>
+			<to-view-id>/Welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>CreateAccount.xhtml</display-name>
+		<from-view-id>/CreateAccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{createAccountBean.createAccount}</from-action>
+			<from-outcome>AccountCreated</from-outcome>
+			<to-view-id>/AccountCreated.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>AccountCreated.xhtml</display-name>
+		<from-view-id>/AccountCreated.xhtml</from-view-id>
+		<navigation-case>
+			<to-view-id>/LandingPage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>LandingPage.xhtml</display-name>
+		<from-view-id>/LandingPage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>WinLoss</from-outcome>
+			<to-view-id>/WinLoss.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>LandingPage.xhtml</display-name>
+		<from-view-id>/LandingPage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>History</from-outcome>
+			<to-view-id>/History.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>History.xhtml</display-name>
+		<from-view-id>/History.xhtml</from-view-id>
+		<navigation-case>
+			<to-view-id>/LandingPage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>WinLoss.xhtml</display-name>
+		<from-view-id>/WinLoss.xhtml</from-view-id>
+		<navigation-case>
+			<to-view-id>/LandingPage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>LandingPage.xhtml</display-name>
+		<from-view-id>/LandingPage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>NewGame</from-outcome>
+			<to-view-id>/Game.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>Game.xhtml</display-name>
+		<from-view-id>/Game.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>LandingPage</from-outcome>
+			<to-view-id>/LandingPage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>LandingPage.xhtml</display-name>
+		<from-view-id>/LandingPage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Welcome</from-outcome>
+			<to-view-id>/Welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<protected-views>
+		<url-pattern>*</url-pattern>
+	</protected-views>
+</faces-config>

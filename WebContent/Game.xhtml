@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="refresh" content="10"/>
+	<title></title>
+	<style>
+.black {
+	background-color: black
+}
+
+.white {
+	background-color: white
+}
+
+.error {
+	color: red
+}
+
+
+body {
+ background-image: url("https://media.wired.com/photos/592720b6af95806129f51b0e/master/pass/GW20160134028.jpg");
+ background-size: 1500px 800px;
+ padding-top: 250px;
+ padding-right: 10px;
+ font-family: 'open sans', helvetica, arial, sans;
+}
+
+form{
+ width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+  color: white;
+}
+
+
+
+.button .apply {
+ background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.button .apply:hover {
+  background-color: #e2ae53;
+  color: white;
+}
+
+</style>
+</h:head>
+<h:body>
+	<h:form>
+	<div class="button">
+		<h2>Go!</h2>
+		<h:messages styleClass="error" />
+
+		<h:panelGroup layout="block" rendered="#{gameBean.isInvalid}">
+			<p>You are not in a game, please return to the previous screen.</p>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" rendered="#{!gameBean.isInvalid}">
+
+			<h:panelGroup layout="block" rendered="#{gameBean.isGameOver}">
+				<h:panelGroup layout="block" rendered="#{gameBean.lost}">
+					<p>You Lost, try again next time!</p>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" rendered="#{gameBean.won}">
+					<p>You win, Congrats!</p>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" rendered="#{gameBean.tie}">
+					<p>The game was a tie!</p>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block"
+				rendered="#{gameBean.waitingForAnotherPlayer}">
+				<p>This game is still waiting on a player2, hit refresh when
+					player2 joins.</p>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block"
+				rendered="#{!gameBean.waitingForAnotherPlayer and !gameBean.isGameOver}">
+				<p>
+					<label>Current Player Turn: </label> #{gameBean.gameInstance.currentPlayerTurn}
+				</p>
+				<p>
+					<label style="color:#e2ae53">Your color: </label> #{gameBean.currentPlayerColor}
+				</p>
+				<p>
+					<label>Player 1 Prisoners:</label>
+					#{gameBean.gameInstance.player1Prisoners} &nbsp;&nbsp;<label>Player
+						1 score:</label> #{gameBean.gameInstance.player1FinalScore}
+				</p>
+				<p>
+					<label>Player 2 Prisoners:</label>
+					#{gameBean.gameInstance.player2Prisoners} &nbsp;&nbsp;<label>Player
+						2 score:</label> #{gameBean.gameInstance.player2FinalScore}
+				</p>
+
+				<p>
+					<label>Number of passes:</label>
+					#{gameBean.gameInstance.numPasses}
+				</p>
+
+				<h3>Game Board:</h3>
+				<table border="1" style="background-color: #e2ae53">
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<col width="65" />
+					<tr style="background-color: #a8a468" > 
+						<th></th>
+						<th>0</th>
+						<th>1</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">A</td>
+						<td class="#{gameBean.gameInstance.gameState[0][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[0][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">B</td>
+						<td class="#{gameBean.gameInstance.gameState[1][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[1][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">C</td>
+						<td class="#{gameBean.gameInstance.gameState[2][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[2][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">D</td>
+						<td class="#{gameBean.gameInstance.gameState[3][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[3][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">E</td>
+						<td class="#{gameBean.gameInstance.gameState[4][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[4][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">F</td>
+						<td class="#{gameBean.gameInstance.gameState[5][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[5][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">G</td>
+						<td class="#{gameBean.gameInstance.gameState[6][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[6][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">H</td>
+						<td class="#{gameBean.gameInstance.gameState[7][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[7][8]}"></td>
+					</tr>
+					<tr>
+						<td class="" style="background-color: #a8a468">I</td>
+						<td class="#{gameBean.gameInstance.gameState[8][0]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][1]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][2]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][3]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][4]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][5]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][6]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][7]}"></td>
+						<td class="#{gameBean.gameInstance.gameState[8][8]}"></td>
+					</tr>
+
+				</table>
+
+				<h:panelGroup layout="block"
+					rendered="#{gameBean.isLoggedInUsersTurn}">
+					<fieldset>
+						<legend>Enter your move</legend>
+						<h:messages styleClass="error" />
+						<h:form>
+				Enter coordinates to play or 'PASS' 
+				<h:inputText id="submittedMoveTxt" value="#{gameBean.submittedMove}">
+							</h:inputText>
+							<br />
+							<br />
+				Enter Opponent's piece to capture
+				<h:inputText id="submittedCaptureTxt"
+								value="#{gameBean.submittedCapture}">
+							</h:inputText>
+							<br />
+							<br />
+
+							<h:commandButton value="Submit Move"
+								action="#{gameBean.submitMove}" styleClass="apply"></h:commandButton>
+						</h:form>
+					</fieldset>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block"
+					rendered="#{!gameBean.isLoggedInUsersTurn}">
+					<p>Opponent is playing..Wait for your turn..!!</p>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+		<br />
+		<br />
+		<h:button value="Return" outcome="LandingPage" styleClass="apply"></h:button>
+	
+		
+	</div>
+		</h:form>
+</h:body>
+</html>

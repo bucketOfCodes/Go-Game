@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Create Account</title>
+	<style>
+.error {
+	color: red
+}
+
+body {
+ background-image: url("https://media.wired.com/photos/592720b6af95806129f51b0e/master/pass/GW20160134028.jpg");
+ background-size: 1500px 800px;
+ padding-top: 50px;
+ padding-left: 250px;
+ font-family: 'open sans', helvetica, arial, sans;
+ color: white;
+}
+
+form{
+ width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+  color: #e2ae53;
+}
+
+input[type = "text"], input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  text-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+.btn .apply {
+ background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.btn .apply:hover {
+  background-color: #e2ae53;
+  color: white;
+}
+
+
+</style>
+</h:head>
+<h:body>
+	<h2>CREATE ACCOUNT</h2>
+	
+		
+		<h:form>
+		<h:messages styleClass="error" />
+				User Name 
+				<h:inputText id="usernameTxt" value="#{createAccountBean.username}">
+				</h:inputText>
+				<br />
+				<br />		
+				Login Name
+				<h:inputText id="logintxtTxt" value="#{createAccountBean.loginname}">
+				</h:inputText>
+				<br />
+				<br />
+				Password
+				<h:inputSecret id="passwordTxt" value="#{createAccountBean.password}">
+				</h:inputSecret>
+				<br />
+				<br />				
+				Confirm Password
+				<h:inputSecret id="passwordConfirmTxt" value="#{createAccountBean.passwordConfirm}">
+				</h:inputSecret>
+				<br />
+				<br />	
+				<div class="btn">		
+				<h:commandButton value="Create Account" action="#{createAccountBean.createAccount}" styleClass="apply"></h:commandButton>			
+				<br />
+				<br />
+				<h:commandButton value="Return" action="#{createAccountBean.returnToWelcome}" styleClass="apply"></h:commandButton>			
+				</div>
+		</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15184730384660" configfile="/Swe681/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Welcome.xhtml" x="228" y="120" id="pf15232340061580" referenceLink="//@navigationRule.11/@navigationCase.0/@toViewId|" outlinks="pf15232340061581 pf15237160022620" inlinks="pf15237160022621 pf15245185552000" path="/Welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="LandingPage.xhtml" x="881" y="118" id="pf15232340061582" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf15237209001846 pf15237209001847 pf152372093730612 pf15245185552000" inlinks="pf15232340061581 pf15237178514643 pf15237209001848 pf15237209001849 pf15244275313180" path="/LandingPage.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="CreateAccount.xhtml" x="336" y="360" id="pf15237160022622" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15237160022621 pf15237178514644" inlinks="pf15237160022620" path="/CreateAccount.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccountCreated.xhtml" x="672" y="360" id="pf15237178514645" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf15237178514643" inlinks="pf15237178514644" path="/AccountCreated.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="WinLoss.xhtml" x="1185" y="118" id="pf152372090018410" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf15237209001849" inlinks="pf15237209001846" path="/WinLoss.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="History.xhtml" x="1221" y="307" id="pf152372090018411" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf15237209001848" inlinks="pf15237209001847" path="/History.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Game.xhtml" x="1045" y="409" id="pf152372093730613" referenceLink="//@navigationRule.10/@fromViewId|" outlinks="pf15244275313180" inlinks="pf152372093730612" path="/Game.xhtml"/>
+  <links id="pf15232340061581" target="pf15232340061582" source="pf15232340061580" outcome="LandingPage" redirect="true" fromaction="#{loginBean.login}"/>
+  <links id="pf15237160022620" target="pf15237160022622" source="pf15232340061580" outcome="CreateAccount" redirect="true" fromaction="#{loginBean.createAccount}"/>
+  <links id="pf15237160022621" target="pf15232340061580" source="pf15237160022622" outcome="Welcome" redirect="true" fromaction="#{createAccountBean.returnToWelcome}"/>
+  <links id="pf15237178514644" target="pf15237178514645" source="pf15237160022622" outcome="AccountCreated" redirect="true" fromaction="#{createAccountBean.createAccount}"/>
+  <links id="pf15237178514643" target="pf15232340061582" source="pf15237178514645" redirect="true"/>
+  <links id="pf15237209001846" target="pf152372090018410" source="pf15232340061582" outcome="WinLoss" redirect="true"/>
+  <links id="pf15237209001847" target="pf152372090018411" source="pf15232340061582" outcome="History" redirect="true"/>
+  <links id="pf15237209001848" target="pf15232340061582" source="pf152372090018411" redirect="true"/>
+  <links id="pf15237209001849" target="pf15232340061582" source="pf152372090018410" redirect="true"/>
+  <links id="pf152372093730612" target="pf152372093730613" source="pf15232340061582" outcome="NewGame" redirect="true"/>
+  <links id="pf15244275313180" target="pf15232340061582" source="pf152372093730613" outcome="LandingPage" redirect="true"/>
+  <links id="pf15245185552000" target="pf15232340061580" source="pf15232340061582" outcome="Welcome" redirect="true"/>
+</pageflow:Pageflow>

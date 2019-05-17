@@ -1,0 +1,87 @@
+
+ALTER TABLE UserProfile DROP CONSTRAINT CurrentGameIdFk;
+DROP TABLE GameState;
+DROP TABLE GameLog;
+DROP TABLE GameInstance;
+DROP TABLE UserProfile;
+
+
+create table UserProfile(
+  Username nvarchar2(100) primary key,
+  Loginname nvarchar2(100) NOT NULL,
+  PasswordHash RAW(1000),
+  HashSalt RAW(1000),
+  CurrentGameId int null,
+  Wins int,
+  Losses int,
+  PasswordAttempts int,
+  PasswordLockout timestamp
+);
+
+create table GameInstance(
+  GameId NUMBER Primary Key,
+  Player1 nvarchar2(100) not null,
+  Player2 nvarchar2(100) null,
+  CurrentState nvarchar2(100) default 'inprogress' not NULL,
+  CurrentPlayerTurn nvarchar2(100) not NULL,
+  NumPasses INT DEFAULT 0 NOT NULL,
+  Player1Prisoners Int DEFAULT 0 not NULL,
+  Player2Prisoners Int DEFAULT 0 not NULL,
+  Player1FinalScore INT DEFAULT 0 not NULL,
+  Player2FinalScore INT DEFAULT 0 not NULL,
+  Info nvarchar2(100) null,
+  TimeSinceLastMove long null,
+  CONSTRAINT Player1Fk FOREIGN KEY (Player1) REFERENCES UserProfile(Username),
+  CONSTRAINT Player2Fk FOREIGN KEY (Player2) REFERENCES UserProfile(Username),
+  CONSTRAINT CurrentPlayerTurnFk FOREIGN KEY (CurrentPlayerTurn) REFERENCES UserProfile(Username),
+  constraint StateCheck  check(CurrentState in('inprogress', 'done'))
+);
+
+ALTER TABLE UserProfile
+ADD CONSTRAINT  CurrentGameIdFk FOREIGN KEY (CurrentGameId) REFERENCES GameInstance(GameId);
+
+create table GameState(
+    GameId number, 
+    BoardRow nvarchar2(1),
+    BoardCol int,
+    OwnedBy nvarchar2(100),
+    PRIMARY KEY(GameId, BoardRow, BoardCol),
+    CONSTRAINT GameIdFk FOREIGN KEY (GameId) REFERENCES GameInstance(GameId),    
+    --CONSTRAINT OwnerFk FOREIGN KEY (OwnedBy) REFERENCES UserProfile(Username),
+    constraint RowCheck  check(BoardRow in('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')),
+    constraint ColCheck  check(BoardCol in(0, 1, 2, 3, 4, 5, 6, 7, 8)),
+    constraint ownerCheck  check(OwnedBy in('black', 'white'))
+);
+
+create table GameLog(    
+    GameId number, 
+    Player nvarchar2(100) NOT NULL,
+    MovePlayed nvarchar2(100) NOT NULL,
+    DatePlayed nvarchar2(100) NOT NULL, 
+    PRIMARY KEY(GameId, DatePlayed), --ensure no two moves can be made at same time
+    CONSTRAINT PlayerFk FOREIGN KEY (Player) REFERENCES UserProfile(Username)
+);
+
+
+DROP SEQUENCE GameInstanceSeq;
+CREATE SEQUENCE GameInstanceSeq START WITH 1;
+
+CREATE OR REPLACE TRIGGER GameInstanceSeqTr 
+BEFORE INSERT ON GameInstance 
+FOR EACH ROW
+BEGIN
+  SELECT GameInstanceSeq.NEXTVAL
+  INTO   :new.GameId
+  FROM   dual;
+END;
+/
+
+
+commit;
+--select * from UserProfile;
+--select * from GameInstance;
+--select * from GameState;
+--select * from GameLog;
+
+
+

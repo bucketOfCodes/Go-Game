@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>GO GAME!</title>
+<style>
+.error {
+	color: red
+}
+
+body {
+ background-image: url("https://media.wired.com/photos/592720b6af95806129f51b0e/master/pass/GW20160134028.jpg");
+ background-size: 1500px 800px;
+ padding-top: 250px;
+ padding-right: 10px;
+ font-family: 'open sans', helvetica, arial, sans;
+}
+
+form{
+ width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+  color: #e2ae53;
+}
+
+input[type = "text"], input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  text-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+.button .apply {
+ background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.button .apply:hover {
+  background-color: #e2ae53;
+  color: white;
+}
+
+</style>
+</h:head>
+<h:body backgroung="http://wallpaperscript.webitfree.com/wp-content/uploads/2014/04/wood-texture-light-ipad-background-1024x768.jpg">
+<div class="log-form">
+		<h:form>
+		<h:messages styleClass="error" />
+				Login Name
+				<h:inputText id="usernameTxt" value="#{loginBean.loginname}">
+				</h:inputText>
+				<br />
+				<br />
+				Password
+				<h:inputSecret id="passwordTxt" value="#{loginBean.password}">
+				</h:inputSecret>
+				<br />
+				<br />
+			<div class="button">
+			<h:commandButton id="btn" value="Login" action="#{loginBean.login}" styleClass="apply"></h:commandButton>		
+				<br />
+				<br />
+			<h:commandButton id="btn2" value="Create Account" action="#{loginBean.createAccount}" styleClass="apply"></h:commandButton>	
+			</div>
+		</h:form>
+	
+	</div>
+</h:body>
+</html>

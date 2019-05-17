@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title></title>
+	<style>
+	body {
+ background-image: url("https://media.wired.com/photos/592720b6af95806129f51b0e/master/pass/GW20160134028.jpg");
+ background-size: 1500px 800px;
+ padding-top: 250px;
+ padding-right: 10px;
+ font-family: 'open sans', helvetica, arial, sans;
+}
+
+form{
+ width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+  color: #e2ae53;
+}
+
+.button .join {
+ background-color: #48e271;
+  border: none;
+  color: black;
+  padding: 8px 20px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+
+.button .apply {
+ background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.button .apply:hover {
+  background-color: #e2ae53;
+  color: white;
+}
+	</style>
+</h:head>
+<h:body>
+<div class="button">
+	<h:form prependId="false">
+		<label>Games Played:</label>
+		<h:dataTable var="gameIns" value="#{historyBean.allPastGames}"
+			border="1">
+			<h:column>
+				<f:facet name="header">Player 1</f:facet>
+			#{gameIns.player1}
+		</h:column>
+			<h:column>
+				<f:facet name="header">Player 2</f:facet>
+			#{gameIns.player2}
+		</h:column>
+			<h:column>
+				<f:facet name="header">History</f:facet>
+				<h:commandButton value="See History" title="History"
+					action="#{historyBean.seeHistory}" styleClass = "join"></h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<br />
+		<br />
+		<br />
+		<label>Game History:</label>
+		<h:dataTable var="gameLog" value="#{historyBean.gameLogForInstance}"
+			border="1">
+			<h:column>
+				<f:facet name="header">Player</f:facet>
+			#{gameLog.player}
+		</h:column>
+			<h:column>
+				<f:facet name="header">Move</f:facet>
+			#{gameLog.movePlayed}
+		</h:column>
+			<h:column>
+				<f:facet name="header">Date</f:facet>
+			#{gameLog.datePlayed}
+		</h:column>
+		</h:dataTable>
+		<br />
+		<br />
+		<h:button value="Return" outcome="LandingPage" styleClass = "apply"></h:button>
+	</h:form>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="refresh" content="10"/>
+	<title>Landing Page</title>
+	<style>
+.error {
+	color: red
+}
+
+body {
+ background-image: url("https://media.wired.com/photos/592720b6af95806129f51b0e/master/pass/GW20160134028.jpg");
+ background-size: 1500px 800px;
+ padding-top: 250px;
+ padding-right: 10px;
+ font-family: 'open sans', helvetica, arial, sans;
+}
+
+form{
+ width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+  color: #e2ae53;
+}
+
+input[type = "text"], input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  text-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+.button .apply {
+ background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.button .join {
+ background-color: #48e271;
+  border: none;
+  color: black;
+  padding: 8px 20px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+
+.button .apply:hover {
+  background-color: #e2ae53;
+  color: white;
+}
+
+
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<h2>Available Games</h2>
+		<h:messages styleClass="error" />
+<div class="button">
+		<h:panelGroup layout="block" rendered="#{!user.isInGame}">
+		
+			<h:dataTable var="game" value="#{landingPageBean.allJoinableGames}"
+				border="1">
+				<h:column>
+					<f:facet name="header">Player 1</f:facet>
+			#{game.player1}
+		</h:column>
+				<h:column>
+					<f:facet name="header">Player 2</f:facet>
+			#{game.player2}
+		</h:column>
+		
+				<h:column>
+					<f:facet name="header">Join Game</f:facet>
+					<h:commandButton value="Join" title="Join this game"
+						action="#{landingPageBean.joinGame(game)}" ajax="false" styleClass="join"></h:commandButton>
+				</h:column>
+			</h:dataTable>
+			<br />
+			<br />
+			
+			<h:commandButton  value="Start New Game"
+				action="#{landingPageBean.startNewGame}" styleClass="apply"></h:commandButton>
+			
+		</h:panelGroup>
+
+		<h:panelGroup layout="black" rendered="#{user.isInGame}"> 
+
+	<h:button value="Re-join game in progress" outcome="Game" styleClass="apply"></h:button>
+	</h:panelGroup>
+	<h:button value="See Wins/Losses" outcome="WinLoss" styleClass="apply"></h:button>	
+		<h:button value="See Game History" outcome="History" styleClass="apply"></h:button>
+
+	<h:commandButton value="Logout" action="#{landingPageBean.logout}" styleClass="apply"></h:commandButton>
+</div>
+	</h:form>
+</h:body>
+</html>
